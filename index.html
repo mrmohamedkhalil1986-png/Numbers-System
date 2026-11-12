@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درس ١١ - ١ : نظام الأعداد (١) | الهوية العُمانية والتعلم النشط</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oman-red: #c8102e;
+      --oman-green: #008000;
+      --oman-white: #ffffff;
+      --oman-gold: #d4af37;
+      --dark-bg: #0f172a;
+      --card-bg: #ffffff;
+      --primary: #1e3a8a;
+      --accent: #0284c7;
+      --light-bg: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* الشريط العلوي بألوان علم سلطنة عُمان */
+    .oman-flag-bar {
+      height: 10px;
+      background: linear-gradient(90deg, var(--oman-red) 0%, var(--oman-red) 33%, var(--oman-white) 33%, var(--oman-white) 66%, var(--oman-green) 66%, var(--oman-green) 100%);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    header {
+      background: linear-gradient(135deg, #880e24 0%, #c8102e 55%, #006400 100%);
+      color: white;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      border-bottom: 4px solid var(--oman-gold);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .oman-emblem {
+      width: 64px;
+      height: 64px;
+      background: white;
+      border-radius: 50%;
+      padding: 6px;
+      border: 3px solid var(--oman-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .title-box h1 {
+      font-size: 1.55rem;
+      font-weight: 900;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .title-box p {
+      font-size: 0.92rem;
+      color: #fde68a;
+      font-weight: 700;
+    }
+
+    /* أزرار اختيار الصفوف */
+    .class-switcher {
+      display: flex;
+      gap: 8px;
+      background: rgba(0,0,0,0.25);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .class-btn {
+      background: transparent;
+      color: white;
+      border: 2px solid transparent;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .class-btn.active {
+      background: var(--oman-gold);
+      color: #1e293b;
+      border-color: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+
+    /* شريط التنقل الرئيسي */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--oman-red);
+      color: var(--oman-red);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--oman-red), #991b1b);
+      color: white;
+      border-color: var(--oman-gold);
+      box-shadow: 0 4px 12px rgba(200,16,46,0.3);
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 20px auto;
+      padding: 0 20px 40px;
+    }
+
+    .section-panel {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* شريط أدوات المجموعات */
+    .groups-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 14px 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-right: 6px solid var(--oman-green);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .action-btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+    .btn-green { background: linear-gradient(135deg, #16a34a, #15803d); color: white; }
+    .btn-blue { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; }
+    .btn-red { background: linear-gradient(135deg, #dc2626, #991b1b); color: white; }
+
+    /* شبكة المجموعات الستة */
+    .groups-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 20px;
+    }
+
+    .group-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 2px solid #e2e8f0;
+      transition: transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .group-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--oman-gold);
+    }
+
+    .group-header {
+      padding: 16px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .group-landmark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .landmark-svg {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 14px;
+      padding: 5px;
+      border: 2px solid var(--oman-gold);
+      flex-shrink: 0;
+    }
+
+    .group-title h3 {
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .group-title span {
+      font-size: 0.82rem;
+      opacity: 0.92;
+      background: rgba(0,0,0,0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .group-score-box {
+      background: rgba(255,255,255,0.95);
+      color: #0f172a;
+      padding: 6px 14px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--oman-gold);
+      min-width: 78px;
+    }
+
+    .group-score-box .pts {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--oman-red);
+      line-height: 1.1;
+    }
+
+    .group-score-box .lbl {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .students-list {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .student-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .student-row.leader {
+      background: linear-gradient(90deg, #fef9c3 0%, #fef08a 100%);
+      border: 2px solid #eab308;
+    }
+
+    .student-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .omani-student-avatar {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    .student-name {
+      font-weight: 800;
+      font-size: 0.94rem;
+      color: #1e293b;
+    }
+
+    .role-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .badge-leader {
+      background: #ca8a04;
+      color: white;
+    }
+
+    .badge-deputy {
+      background: #0284c7;
+      color: white;
+    }
+
+    .grade-pill {
+      background: #e2e8f0;
+      color: #0f172a;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 3px 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .show-grades .grade-pill {
+      display: inline-block;
+    }
+
+    .group-footer {
+      padding: 12px 16px;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .pts-btn {
+      flex: 1;
+      padding: 7px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: transform 0.1s;
+    }
+
+    .pts-btn:active { transform: scale(0.95); }
+    .pts-plus10 { background: #16a34a; color: white; }
+    .pts-plus5 { background: #0284c7; color: white; }
+    .pts-minus5 { background: #ef4444; color: white; }
+
+    /* قسم المختبر التفاعلي والتمارين */
+    .lab-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .lab-layout { grid-template-columns: 1fr; }
+    }
+
+    .ex-sidebar {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: fit-content;
+    }
+
+    .ex-nav-btn {
+      text-align: right;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      background: #f8fafc;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #1e293b;
+    }
+
+    .ex-nav-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .ex-nav-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--oman-gold);
+    }
+
+    .ex-workspace {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      border-top: 6px solid var(--oman-red);
+    }
+
+    .ex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px dashed #e2e8f0;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ex-question-box {
+      background: #f8fafc;
+      border-right: 6px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1.85;
+      color: #0f172a;
+    }
+
+    .canvas-stage {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .canvas-stage { grid-template-columns: 1fr; }
+    }
+
+    .svg-board {
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .controls-panel {
+      background: #f1f5f9;
+      padding: 18px;
+      border-radius: 16px;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step-explanation {
+      background: #f0fdf4;
+      border: 2px solid #16a34a;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #14532d;
+      line-height: 1.75;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-explanation.visible {
+      display: block;
+    }
+
+    /* الصناديق المفقودة كما في الكتاب */
+    .missing-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 68px;
+      height: 44px;
+      padding: 0 12px;
+      background: #7dd3fc;
+      border: 2.5px solid #0369a1;
+      border-radius: 6px;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: #0f172a;
+      margin: 0 6px;
+      vertical-align: middle;
+      transition: all 0.35s ease;
+    }
+
+    .missing-box.white-box {
+      background: #ffffff;
+      border: 2px solid #64748b;
+      min-width: 100px;
+    }
+
+    .missing-box.solved {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #15803d;
+      transform: scale(1.06);
+      box-shadow: 0 3px 10px rgba(22,163,74,0.2);
+    }
+
+    .price-card {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 2.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 900;
+      font-size: 1.2rem;
+      transition: all 0.35s;
+    }
+
+    .price-card.winner {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #15803d;
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(22,163,74,0.25);
+    }
+
+    .price-card.excluded {
+      opacity: 0.45;
+      text-decoration: line-through;
+      border-color: #ef4444;
+    }
+
+    /* قسم مسابقة التحدي */
+    .quiz-scoreboard {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .quiz-scoreboard { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .mini-score-card {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mini-score-card.selected-team {
+      border-color: var(--oman-red);
+      background: #fff1f2;
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(200,16,46,0.2);
+    }
+
+    .quiz-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border-top: 6px solid var(--oman-gold);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .opt-btn {
+      padding: 16px;
+      border-radius: 14px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: right;
+      transition: all 0.2s;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--accent);
+      background: #f0f9ff;
+    }
+
+    .opt-btn.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .opt-btn.wrong {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #7f1d1d;
+    }
+
+    /* خطة الدرس */
+    .plan-timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .plan-step {
+      background: white;
+      border-radius: 16px;
+      padding: 18px 22px;
+      border-right: 6px solid var(--oman-red);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .time-badge {
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    /* نافذة منبثقة للاختيار العشوائي */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      max-width: 520px;
+      width: 100%;
+      padding: 28px;
+      text-align: center;
+      border: 4px solid var(--oman-gold);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="oman-flag-bar"></div>
+
+  <header>
+    <div class="header-right">
+      <!-- شعار الخنجر العماني SVG -->
+      <div class="oman-emblem" title="شعار سلطنة عُمان">
+        <svg viewBox="0 0 100 100" width="50" height="50">
+          <circle cx="50" cy="50" r="46" fill="#fff" stroke="#c8102e" stroke-width="4"/>
+          <path d="M22,75 L78,25 M78,75 L22,25" stroke="#c8102e" stroke-width="6" stroke-linecap="round"/>
+          <path d="M44,20 L56,20 L54,58 C54,68 42,72 35,66 C42,64 45,58 45,50 Z" fill="#d4af37" stroke="#880e24" stroke-width="2.5"/>
+          <rect x="36" y="45" width="28" height="8" rx="3" fill="#008000" stroke="#d4af37" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="title-box">
+        <h1>درس ١١ - ١ : نظام الأعداد (١) 🇴🇲</h1>
+        <p>مدرسة السلطان فيصل بن تركي للبنين | إعداد المعلم: أ. محمد خليل</p>
+      </div>
+    </div>
+
+    <!-- أزرار التبديل بين الصفوف الثلاثة -->
+    <div class="class-switcher">
+      <button class="class-btn active" onclick="switchClass('6-2', this)">سادس ثاني (٦ / ٢)</button>
+      <button class="class-btn" onclick="switchClass('6-1', this)">سادس أول (٦ / ١)</button>
+      <button class="class-btn" onclick="switchClass('6-3', this)">سادس ثالث (٦ / ٣)</button>
+    </div>
+  </header>
+
+  <!-- تبويبات التطبيق -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="openTab('tab-groups', this)">👥 المجموعات العُمانية الستة</button>
+    <button class="tab-btn" onclick="openTab('tab-lab', this)">🔢 تدريبات الكتاب (لنستكشف + ١ إلى ٨)</button>
+    <button class="tab-btn" onclick="openTab('tab-quiz', this)">🏆 مسابقة التحدي (٦ أسئلة للمجموعات)</button>
+    <button class="tab-btn" onclick="openTab('tab-plan', this)">📋 خطة الحصة النموذجية (٤٥ د)</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- ==================== ١. قسم المجموعات العمانية الستة ==================== -->
+    <section id="tab-groups" class="section-panel active">
+      <div class="groups-toolbar">
+        <div>
+          <h2 id="current-class-title" style="color: var(--primary); font-weight: 900;">
+            قائمة مجموعات صف سادس ثاني (٦ / ٢) - المعالم العُمانية
+          </h2>
+          <p style="font-size: 0.9rem; color: #475569; font-weight: 700;">
+            تقسيمة المجموعات المعتمدة مع الرؤساء بالزي العُماني الرسمي (الدشداشة والكمة)
+          </p>
+        </div>
+        <div class="toolbar-actions">
+          <button class="action-btn btn-gold" onclick="pickRandomStudent()">🎲 اختيار طالب عشوائي</button>
+          <button class="action-btn btn-blue" onclick="toggleGrades()">📊 إظهار / إخفاء الدرجات</button>
+          <button class="action-btn btn-green" onclick="awardAllGroups(5)">🌟 +٥ نقاط لجميع المجموعات</button>
+          <button class="action-btn btn-red" onclick="resetClassScores()">🔄 تصفير نقاط الصف</button>
+        </div>
+      </div>
+
+      <div id="groups-container" class="groups-grid"></div>
+    </section>
+
+    <!-- ==================== ٢. تدريبات الكتاب التفاعلية (لنستكشف + ١ إلى ٨) ==================== -->
+    <section id="tab-lab" class="section-panel">
+      <div class="lab-layout">
+        <div class="ex-sidebar">
+          <h3 style="color: var(--oman-red); font-weight: 900; margin-bottom: 6px;">أسئلة وتدريبات الكتاب:</h3>
+          <button class="ex-nav-btn active" onclick="loadExercise(0, this)">🔍 لنستكشف: لغز منى والتقريب</button>
+          <button class="ex-nav-btn" onclick="loadExercise(1, this)">١) تقريب عدد إلى أقرب ١٠ (٥٠)</button>
+          <button class="ex-nav-btn" onclick="loadExercise(2, this)">٢) العدد المفقود [ ؟ ] إلى أقرب ١٠ (٧٠٠)</button>
+          <button class="ex-nav-btn" onclick="loadExercise(3, this)">٣) عدد أكبر من ألف وأقل من ألف ومائة</button>
+          <button class="ex-nav-btn" onclick="loadExercise(4, this)">٤) المتباينة: ٢٤٠٠٠ &lt; [ ؟ ] &lt; ٢٥٠٠٠</button>
+          <button class="ex-nav-btn" onclick="loadExercise(5, this)">٥) تحديد مكان ٨٥٠٠ على خط الأعداد</button>
+          <button class="ex-nav-btn" onclick="loadExercise(6, this)">٦) منتصف المسافة للعدد ٦٠٠٠ (أ ، ب)</button>
+          <button class="ex-nav-btn" onclick="loadExercise(7, this)">٧) أيّهما أقرب إلى ١٠٠٠٠: (٩٩٦٠ أم ١٠٠٦٠)؟</button>
+          <button class="ex-nav-btn" onclick="loadExercise(8, this)">٨) تقدير تكلفة الرحلة بالريال العُماني</button>
+        </div>
+
+        <div class="ex-workspace">
+          <div class="ex-header">
+            <h2 id="ex-title" style="color: var(--primary); font-weight: 900;">لنستكشف</h2>
+            <span id="ex-badge" style="background: var(--oman-green); color: white; padding: 5px 14px; border-radius: 10px; font-weight: 800;">
+              درس ١١ - ١ : نظام الأعداد (١)
+            </span>
+          </div>
+
+          <div id="ex-desc" class="ex-question-box"></div>
+
+          <div class="canvas-stage">
+            <div class="svg-board" id="svg-stage-container"></div>
+
+            <div class="controls-panel">
+              <h3 style="color: #0f172a; font-weight: 900;">التحكم في عرض الإجابة:</h3>
+              <p style="font-size: 0.88rem; color: #475569; font-weight: 700;">
+                الحل مخفي افتراضياً لإتاحة الفرصة لتفكير المجموعات، اضغط أدناه لإظهار الحل والبرهان على السبورة:
+              </p>
+              <div id="ex-buttons" style="display: flex; flex-direction: column; gap: 10px;"></div>
+              <div id="ex-solution-steps" class="step-explanation"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ٣. مسابقة التحدي للمجموعات الستة ==================== -->
+    <section id="tab-quiz" class="section-panel">
+      <div class="groups-toolbar">
+        <div>
+          <h2 style="color: var(--oman-red); font-weight: 900;">🏆 مسابقة فرسان نظام الأعداد (٦ أسئلة للمجموعات الستة)</h2>
+          <p style="font-size: 0.9rem; color: #475569; font-weight: 700;">
+            اختر المجموعة المتحدية أولاً ثم أجب عن السؤال لكسب +١٠ نقاط فورية في رصيد المجموعة!
+          </p>
+        </div>
+        <div class="toolbar-actions">
+          <button class="action-btn btn-gold" onclick="selectRandomQuizTeam()">🎯 قرعة اختيار المجموعة المتحدية</button>
+          <button class="action-btn btn-green" onclick="showWinnerModal()">🏅 إعلان المجموعة المتصدرة</button>
+        </div>
+      </div>
+
+      <!-- لوحة النقاط المصغرة للمجموعات الستة -->
+      <div id="quiz-scoreboard" class="quiz-scoreboard"></div>
+
+      <div class="quiz-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <div id="quiz-q-counter" style="font-weight:900; font-size:1.2rem; color:var(--primary);">السؤال ١ من ٦</div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span id="active-team-indicator" style="background:#fef08a; color:#854d0e; padding:6px 14px; border-radius:10px; font-weight:900;">
+              المجموعة المجيبة: مجموعة جامع السلطان قابوس
+            </span>
+            <span id="timer-box" style="background:var(--oman-red); color:white; padding:6px 16px; border-radius:10px; font-weight:900; font-size:1.1rem;">
+              ⏱️ 30 ث
+            </span>
+          </div>
+        </div>
+
+        <div class="canvas-stage">
+          <div>
+            <div id="quiz-q-text" class="ex-question-box" style="font-size:1.15rem;"></div>
+            <div id="quiz-options" class="options-grid"></div>
+            <div id="quiz-feedback" class="step-explanation" style="margin-top:14px;"></div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+              <button class="action-btn btn-blue" onclick="prevQuizQuestion()">➡️ السؤال السابق</button>
+              <button class="action-btn btn-gold" onclick="revealQuizVisualHint()">💡 إظهار التوضيح على خط الأعداد</button>
+              <button class="action-btn btn-green" onclick="nextQuizQuestion()">السؤال التالي ⬅️</button>
+            </div>
+          </div>
+
+          <div class="svg-board" id="quiz-svg-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ٤. خطة الحصة النموذجية ==================== -->
+    <section id="tab-plan" class="section-panel">
+      <div class="ex-workspace">
+        <h2 style="color: var(--oman-red); font-weight: 900; margin-bottom: 16px;">
+          📋 خطة سير الحصة النموذجية لدرس "١١ - ١ نظام الأعداد (١)" (٤٥ دقيقة - تعلم نشط)
+        </h2>
+        <div class="plan-timeline">
+          <div class="plan-step">
+            <div>
+              <h3 style="color:var(--primary);">١. التهيئة الحافزة وربط الدرس بالهوية العُمانية</h3>
+              <p>عرض المسافات بالكيلومترات بين المعالم العُمانية (مثل المسافة من <strong>برج الصحوة</strong> بمسقط إلى <strong>صلالة</strong> أو <strong>الجبل الأخضر</strong>) ومناقشة تقريب الأعداد إلى أقرب ١٠ وأقرب ١٠٠ وموقعها على خط الأعداد.</p>
+            </div>
+            <span class="time-badge">٥ دقائق</span>
+          </div>
+          <div class="plan-step">
+            <div>
+              <h3 style="color:var(--primary);">٢. نشاط "لنستكشف" التعاوني (لغز منى)</h3>
+              <p>يتناقش طلاب كل مجموعة بإشراف رئيس المجموعة في تحديد مدى الأعداد التي تقرب إلى ١٠٨٠ (لأقرب ١٠) ثم تقرب الإجابة إلى ١١٠٠ (لأقرب ١٠٠)، واستنتاج أصغر عدد (١٠٧٥) وأكبر عدد (١٠٨٤).</p>
+            </div>
+            <span class="time-badge">٨ دقائق</span>
+          </div>
+          <div class="plan-step">
+            <div>
+              <h3 style="color:var(--primary);">٣. الشرح التفاعلي وتطبيق استراتيجية (فكر - زاوج - شارك)</h3>
+              <p>حل الأسئلة من (١) إلى (٤) حول إيجاد الأعداد المفقودة عند التقريب لأقرب ١٠ وكتابة أعداد تحقق متباينات وشروط محددة، ثم الضغط على زر "إظهار الحل" لمطابقة إجابات المجموعات.</p>
+            </div>
+            <span class="time-badge">١٠ دقائق</span>
+          </div>
+          <div class="plan-step">
+            <div>
+              <h3 style="color:var(--primary);">٤. محطات العمل الجماعي على خطوط الأعداد والمسائل الحياتية (الأسئلة ٥ إلى ٨)</h3>
+              <p>تتنافس المجموعات الستة في تحديد موقع العدد ٨٥٠٠ على خط الأعداد، وحساب منتصف المسافة للعدد ٦٠٠٠، ومقارنة البعد عن ١٠٠٠٠، وتحديد تكلفة الرحلة بالريال العُماني.</p>
+            </div>
+            <span class="time-badge">١٢ دقيقة</span>
+          </div>
+          <div class="plan-step">
+            <div>
+              <h3 style="color:var(--primary);">٥. الغلق الختامي: مسابقة التحدي وتتويج المجموعة الفائزة</h3>
+              <p>خوض مسابقة الأسئلة الستة التفاعلية بين المجموعات الستة، وإعلان المجموعة الفائزة بكأس التميز العُماني.</p>
+            </div>
+            <span class="time-badge">١٠ دقائق</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- نافذة القرعة والتتويج -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h2 id="modal-title" style="color:var(--oman-red); font-weight:900; margin-bottom:12px;"></h2>
+      <div id="modal-body" style="font-size:1.2rem; font-weight:800; color:#1e293b; margin-bottom:20px;"></div>
+      <button class="action-btn btn-red" style="margin:0 auto;" onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       ١. تعريف المجموعات العمانية الستة الموحدة مع رسوماتها (SVG)
+       ========================================================================= */
+    const OMAN_GROUPS_META = [
+      {
+        id: 0,
+        name: "مجموعة جامع السلطان قابوس",
+        subtitle: "العمارة الإسلامية العُمانية",
+        color: "linear-gradient(135deg, #0f766e, #115e59)",
+        svg: `<svg viewBox="0 0 64 64">
+          <path d="M12,48 L52,48 L52,54 L12,54 Z" fill="#0f766e"/>
+          <path d="M20,48 C20,30 44,30 44,48 Z" fill="#d4af37" stroke="#115e59" stroke-width="2"/>
+          <rect x="10" y="20" width="5" height="28" fill="#115e59"/>
+          <polygon points="12.5,12 9,20 16,20" fill="#d4af37"/>
+          <rect x="49" y="20" width="5" height="28" fill="#115e59"/>
+          <polygon points="51.5,12 48,20 55,20" fill="#d4af37"/>
+          <circle cx="32" cy="26" r="2.5" fill="#d4af37"/>
+        </svg>`
+      },
+      {
+        id: 1,
+        name: "مجموعة برج الصحوة",
+        subtitle: "رمز النهضة العُمانية",
+        color: "linear-gradient(135deg, #b91c1c, #991b1b)",
+        svg: `<svg viewBox="0 0 64 64">
+          <rect x="18" y="50" width="28" height="6" fill="#991b1b"/>
+          <path d="M23,50 L26,18 L38,18 L41,50 Z" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+          <circle cx="32" cy="30" r="6" fill="#ffffff" stroke="#991b1b" stroke-width="2"/>
+          <line x1="32" y1="30" x2="32" y2="26" stroke="#000" stroke-width="1.5"/>
+          <line x1="32" y1="30" x2="35" y2="30" stroke="#c8102e" stroke-width="1.5"/>
+          <path d="M25,18 Q32,10 39,18 Z" fill="#008000"/>
+        </svg>`
+      },
+      {
+        id: 2,
+        name: "مجموعة قلعة نزوى",
+        subtitle: "بيضة الإسلام والتاريخ",
+        color: "linear-gradient(135deg, #b45309, #92400e)",
+        svg: `<svg viewBox="0 0 64 64">
+          <rect x="12" y="26" width="40" height="28" rx="3" fill="#d97706" stroke="#78350f" stroke-width="2"/>
+          <rect x="12" y="20" width="6" height="6" fill="#b45309"/>
+          <rect x="23" y="20" width="6" height="6" fill="#b45309"/>
+          <rect x="35" y="20" width="6" height="6" fill="#b45309"/>
+          <rect x="46" y="20" width="6" height="6" fill="#b45309"/>
+          <path d="M27,54 L27,40 Q32,35 37,40 L37,54 Z" fill="#78350f"/>
+        </svg>`
+      },
+      {
+        id: 3,
+        name: "مجموعة كورنيش مطرح",
+        subtitle: "إطلالة البحر والتراث البحري",
+        color: "linear-gradient(135deg, #0284c7, #0369a1)",
+        svg: `<svg viewBox="0 0 64 64">
+          <path d="M6,46 Q18,40 32,46 T58,46 L58,56 L6,56 Z" fill="#0284c7"/>
+          <path d="M18,38 L46,38 L40,45 L24,45 Z" fill="#92400e"/>
+          <polygon points="32,14 32,36 46,34" fill="#ffffff" stroke="#0369a1" stroke-width="1.5"/>
+          <polygon points="30,18 30,36 19,34" fill="#fde68a"/>
+        </svg>`
+      },
+      {
+        id: 4,
+        name: "مجموعة صلالة",
+        subtitle: "أرض اللبان والخريف الأخضر",
+        color: "linear-gradient(135deg, #15803d, #166534)",
+        svg: `<svg viewBox="0 0 64 64">
+          <path d="M8,52 Q32,42 56,52 L56,58 L8,58 Z" fill="#16a34a"/>
+          <path d="M30,50 Q33,34 36,22" stroke="#78350f" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M36,22 Q22,16 18,26" stroke="#15803d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M36,22 Q48,16 52,26" stroke="#15803d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M36,22 Q30,10 24,14" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M36,22 Q44,10 50,14" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>`
+      },
+      {
+        id: 5,
+        name: "مجموعة الجبل الأخضر",
+        subtitle: "مدرجات الورد والرمان",
+        color: "linear-gradient(135deg, #4f46e5, #3730a3)",
+        svg: `<svg viewBox="0 0 64 64">
+          <polygon points="6,52 26,18 44,52" fill="#4f46e5"/>
+          <polygon points="24,52 42,22 58,52" fill="#16a34a"/>
+          <path d="M28,44 L54,44 M32,36 L50,36" stroke="#fde047" stroke-width="2.5"/>
+          <circle cx="16" cy="18" r="5" fill="#facc15"/>
+        </svg>`
+      }
+    ];
+
+    /* أيقونة الطالب العماني بالدشداشة البيضاء والكمة المطرزة */
+    function getOmaniStudentSVG(isLeader) {
+      const kummaColor = isLeader ? "#d4af37" : "#c8102e";
+      return `<svg class="omani-student-avatar" viewBox="0 0 60 60">
+        <circle cx="30" cy="30" r="28" fill="${isLeader ? '#fef3c7' : '#e0f2fe'}" stroke="${kummaColor}" stroke-width="2"/>
+        <path d="M14,56 C14,43 46,43 46,56 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="30" y1="43" x2="30" y2="55" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="30" y1="44" x2="26" y2="51" stroke="#c8102e" stroke-width="1.5"/>
+        <circle cx="26" cy="51" r="1.5" fill="#c8102e"/>
+        <circle cx="30" cy="31" r="10" fill="#fbd38d"/>
+        <circle cx="26.5" cy="30" r="1.3" fill="#1e293b"/>
+        <circle cx="33.5" cy="30" r="1.3" fill="#1e293b"/>
+        <path d="M27,35 Q30,37.5 33,35" stroke="#1e293b" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M19,25 C19,15 41,15 41,25 Z" fill="${kummaColor}"/>
+        <path d="M20,24 L40,24" stroke="#ffffff" stroke-width="2" stroke-dasharray="2,2"/>
+      </svg>`;
+    }
+
+    /* =========================================================================
+       ٢. بيانات الصفوف الثلاثة (مع تقسيمة سادس ثاني ٦/٢ المعتمدة)
+       ========================================================================= */
+    const CLASSES_DATA = {
+      "6-2": {
+        title: "صف سادس ثاني (٦ / ٢)",
+        scores: [0, 0, 0, 0, 0, 0],
+        groups: [
+          [
+            { name: "يوسف مروان عماد الدين محمد", grade: 10, role: "رئيس المجموعة" },
+            { name: "أسامة بن أنس بن شامس الأخزمي", grade: 10 },
+            { name: "محمد بن كهلان بن سيف الشقصي", grade: 10 },
+            { name: "شهاب بن سامي بن خليفه التوبي", grade: 8 },
+            { name: "رائد بن خلفان بن يوسف الجابري", grade: 5 },
+            { name: "جيفر بن حمد بن مبارك الجهمني", grade: 4 }
+          ],
+          [
+            { name: "البراء بن أحمد بن سليمان البوصافي", grade: 8, role: "رئيس المجموعة" },
+            { name: "حسين بن محمد بن حسين الرئيسي", grade: 10 },
+            { name: "البراء بن بدر بن علي الشبلي", grade: 8 },
+            { name: "أمير بن عبدالله بن مبارك الخصيبي", grade: 7 },
+            { name: "تميم بن ناصر بن عبدالله الشكيري", grade: 7 },
+            { name: "زكريا بن سامي بن صالح القاسمي", grade: 6 }
+          ],
+          [
+            { name: "الحسن بن عابد بن موسى البلوشي", grade: 5, role: "رئيس المجموعة" },
+            { name: "سعيد بن محمد بن سعيد الغماري", grade: 10 },
+            { name: "ليث بن عارف بن أحمد المحروقي", grade: 9 },
+            { name: "عمار بن ياسر بن أحمد المحروقي", grade: 7 },
+            { name: "شبيب بن قيس بن اسحاق الرئيسي", grade: 5 },
+            { name: "آدم بن صابر بن غلام الزدجالي", grade: 4 }
+          ],
+          [
+            { name: "أيوب بن عبدالله بن أيوب البلوشي", grade: 9, role: "رئيس المجموعة" },
+            { name: "أمير بن أسعد بن جمعه البلوشي", grade: 2, role: "نائب الرئيس" },
+            { name: "أحمد بن أمير بن جمعه الوهيبي", grade: 10 },
+            { name: "الحسام عادل هزاع المجيدي", grade: 9 },
+            { name: "عبدالرحمن بن وليد بن حديد المقيمي", grade: 8 },
+            { name: "أسامة بن أسعد بن خليفه المالكي", grade: 6 }
+          ],
+          [
+            { name: "عبدالعزيز بن موسى بن راشد الهنائي", grade: 9, role: "رئيس المجموعة" },
+            { name: "عبدالرحمن بن سالم بن سعيد المحروقي", grade: 10 },
+            { name: "باسل بن أسعد بن عبدالله الهادي", grade: 9 },
+            { name: "الأزهر بن علي بن هلال الهادي", grade: 8 },
+            { name: "راكان بن ياسر بن خميس الهاشمي", grade: 6 },
+            { name: "حسام بن فهد بن محمد قريشي", grade: 5 }
+          ],
+          [
+            { name: "خالد بن منذر بن خالد الزدجالي", grade: 9, role: "رئيس المجموعة" },
+            { name: "عمر بن يحيى بن سليمان الجابري", grade: 7 },
+            { name: "يامن بن زكريا بن محمد البوصافي", grade: 5 },
+            { name: "الحارث بن محمد بن جمعان الرواحي", grade: 5 },
+            { name: "سعيد بن محمود بن سعيد الشعيبي", grade: 5 },
+            { name: "حمد بن سعود بن علي الوهيبي", grade: 5 }
+          ]
+        ]
+      },
+      "6-1": {
+        title: "صف سادس أول (٦ / ١)",
+        scores: [0, 0, 0, 0, 0, 0],
+        groups: [
+          [
+            { name: "آدم عمار السعداوي", grade: 10, role: "رئيس المجموعة" },
+            { name: "لؤي بن عدنان بن عبدالله البلوشي", grade: 10 },
+            { name: "أحمد بن فيصل بن ناصر البطاشي", grade: 8 },
+            { name: "محمد بن مياه بن عبدالقادر البلوشي", grade: 7 },
+            { name: "عمر بن عبدالسلام بن سالم العبري", grade: 6 },
+            { name: "تيمور بن سعيد بن أحمد الجابري", grade: 3 }
+          ],
+          [
+            { name: "أسامه بن محمد بن سالمين الكليبي", grade: 10, role: "رئيس المجموعة" },
+            { name: "مازن بن عامر بن مرهون الهاشلي", grade: 10 },
+            { name: "بشار بن مازن بن سالم الفارسي", grade: 8 },
+            { name: "ملهم بن عبدالملك بن رسول بخش", grade: 7 },
+            { name: "غيث بن وليد بن سعيد الراشدي", grade: 5 },
+            { name: "يأمن بن ايمن بن سالم السيابي", grade: 3 }
+          ],
+          [
+            { name: "الخزام بن عيسى بن عبدالله النيري", grade: 10, role: "رئيس المجموعة" },
+            { name: "يوسف السر ادم عمر", grade: 10 },
+            { name: "علي بن حسن بن علي البحراني", grade: 8 },
+            { name: "أواب بن عبدالله بن خلفان الحسني", grade: 6 },
+            { name: "فارس بن ابراهيم بن سعيد الهطالي", grade: 5 },
+            { name: "زكريا بن يوسف بن حمد السلطي", grade: 1 }
+          ],
+          [
+            { name: "العز بن راشد بن علي العلوي", grade: 10, role: "رئيس المجموعة" },
+            { name: "خالد بن وليد بن سيف الشبلي", grade: 9 },
+            { name: "علي بن محمد بن علي البلوشي", grade: 6 },
+            { name: "عبدالعزيز بن مصطفى جماعيه", grade: 5 },
+            { name: "أيهم بن هيثم بن آمن الرواحي", grade: 4 },
+            { name: "سلطان بن فيصل بن ابراهيم الزدجالي", grade: 1 }
+          ],
+          [
+            { name: "المرتضى بن حمد بن مهنا الجرداني", grade: 10, role: "رئيس المجموعة" },
+            { name: "طارق بن عمر بن سالم الغابشي", grade: 10 },
+            { name: "عبدالله بن سالم بن عبدالله الغماري", grade: 9 },
+            { name: "محمد بن ماجد بن أحمد البلوشي", grade: 6 },
+            { name: "علي بن عبدالرحيم بن علي الرئيسي", grade: 4 },
+            { name: "يسن الصادق يس الحسن", grade: 7 }
+          ],
+          [
+            { name: "توفيق بن صلاح بن توفيق القرني", grade: 10, role: "رئيس المجموعة" },
+            { name: "سعيد بن حافظ بن سعيد البرواني", grade: 10 },
+            { name: "عمر عبدالعزيز يحي حجاج", grade: 10 },
+            { name: "فهد بن سعود بن أحمد اليعربي", grade: 10 },
+            { name: "عبدالله بن فهد بن عبدالله البلوشي", grade: 9 },
+            { name: "ليث بن صالح بن ناصر الفارسي", grade: 9 },
+            { name: "نوح بن عادل بن سعيد الوهيبي", grade: 6 }
+          ]
+        ]
+      },
+      "6-3": {
+        title: "صف سادس ثالث (٦ / ٣)",
+        scores: [0, 0, 0, 0, 0, 0],
+        groups: [
+          [
+            { name: "أحمد بن حنيف بن عبدالمجيد البلوشي", grade: 10, role: "رئيس المجموعة" },
+            { name: "معاذ بن منير بن خميس الحسني", grade: 9 },
+            { name: "تركي بن فهد بن عبدالله البلوشي", grade: 8 },
+            { name: "حسين محمد حسين حبيب الجبوري", grade: 7 },
+            { name: "حسين بن علي بن عبدالله البلوشي", grade: 5 },
+            { name: "عبدالله بن محمد بن نايع البلوشي", grade: 3 }
+          ],
+          [
+            { name: "أحمد بن عمار بن أحمد البطاشي", grade: 10, role: "رئيس المجموعة" },
+            { name: "الوليد بن خالد بن سعيد السعدي", grade: 9 },
+            { name: "تميم بن محمد بن إسماعيل البلوشي", grade: 8 },
+            { name: "راكان بن خالد بن ابراهيم الراشدي", grade: 7 },
+            { name: "عمر بن شريف بن شيرمحمد البلوشي", grade: 5 },
+            { name: "عمران بن فريد بن علي البوسعيدي", grade: 3 }
+          ],
+          [
+            { name: "آدم بن اسحاق بن سعيد الغداني", grade: 10, role: "رئيس المجموعة" },
+            { name: "عبدالله بن حمود بن عبدالله الوضاحي", grade: 9 },
+            { name: "سيف بن حمد بن سعود الوهيبي", grade: 8 },
+            { name: "زكريا بن عمران بن محمدحنيف البلوشي", grade: 7 },
+            { name: "محمد بن هلال بن محمد العبدلي", grade: 5 },
+            { name: "فهم بن فارس بن جمعه الوهيبي", grade: 3 }
+          ],
+          [
+            { name: "عامر بن احمد بن عامر المصلحي", grade: 10, role: "رئيس المجموعة" },
+            { name: "ليث بن سالم بن ناصر المنيري", grade: 9 },
+            { name: "عبدالرحمن رجب رمضان احمد ابوزيد", grade: 8 },
+            { name: "عزام بن قيس بن محمد الهادي", grade: 7 },
+            { name: "جاسم بن محمد بن عبدالله المخيني", grade: 6 },
+            { name: "مشاري بن عامر بن ناصر المقيمي", grade: 5 }
+          ],
+          [
+            { name: "معتز بن سعيد بن حامد الزدجالي", grade: 10, role: "رئيس المجموعة" },
+            { name: "عدنان بن محمد بن علي الحسيني", grade: 8 },
+            { name: "يوسف بن محمد بن يوسف البلوشي", grade: 7 },
+            { name: "سعود بن يوسف بن سعود المعشري", grade: 6 },
+            { name: "سعيد بن نبيل بن سعيد المسكري", grade: 4 },
+            { name: "نزار بن يوسف بن خلفان البطاشي", grade: 7 }
+          ],
+          [
+            { name: "محمد بن علي بن حسين الزعابي", grade: 9, role: "رئيس المجموعة" },
+            { name: "عدي بن مالك بن ناصر البطاشي", grade: 8 },
+            { name: "يوسف بن علي بن سعيد المزروعي", grade: 8 },
+            { name: "صهيب بن سيف بن خلفان أولادأحمد", grade: 6 },
+            { name: "عصام بن ناصر بن عبيد الجشمي", grade: 6 },
+            { name: "قصي بن خلفان بن راشد البطاشي", grade: 4 }
+          ]
+        ]
+      }
+    };
+
+    let currentClassKey = "6-2";
+    let showGradesFlag = false;
+
+    function renderGroups() {
+      const container = document.getElementById("groups-container");
+      const cls = CLASSES_DATA[currentClassKey];
+      document.getElementById("current-class-title").innerText = `قائمة مجموعات ${cls.title} - المعالم العُمانية الستة`;
+
+      container.innerHTML = cls.groups.map((students, gIdx) => {
+        const meta = OMAN_GROUPS_META[gIdx];
+        const score = cls.scores[gIdx];
+
+        const rowsHTML = students.map((st, sIdx) => {
+          const isLeader = sIdx === 0;
+          const badgeHTML = st.role
+            ? `<span class="role-badge ${isLeader ? 'badge-leader' : 'badge-deputy'}">${st.role === 'رئيس المجموعة' ? '👑 رئيس المجموعة' : '⭐ ' + st.role}</span>`
+            : '';
+          return `
+            <div class="student-row ${isLeader ? 'leader' : ''}">
+              <div class="student-info">
+                ${getOmaniStudentSVG(isLeader)}
+                <div>
+                  <span class="student-name">${st.name}</span>
+                  ${badgeHTML}
+                </div>
+              </div>
+              <span class="grade-pill">${st.grade} / ١٠</span>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="group-card">
+            <div class="group-header" style="background: ${meta.color};">
+              <div class="group-landmark">
+                <div class="landmark-svg">${meta.svg}</div>
+                <div class="group-title">
+                  <h3>${meta.name}</h3>
+                  <span>${meta.subtitle}</span>
+                </div>
+              </div>
+              <div class="group-score-box">
+                <div class="pts" id="group-score-${gIdx}">${score}</div>
+                <div class="lbl">نقطة</div>
+              </div>
+            </div>
+            <div class="students-list ${showGradesFlag ? 'show-grades' : ''}">
+              ${rowsHTML}
+            </div>
+            <div class="group-footer">
+              <button class="pts-btn pts-plus10" onclick="changeScore(${gIdx}, 10)">+١٠ نقاط</button>
+              <button class="pts-btn pts-plus5" onclick="changeScore(${gIdx}, 5)">+٥ نقاط</button>
+              <button class="pts-btn pts-minus5" onclick="changeScore(${gIdx}, -5)">-٥</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      renderQuizScoreboard();
+    }
+
+    function switchClass(key, btn) {
+      currentClassKey = key;
+      document.querySelectorAll(".class-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderGroups();
+    }
+
+    function changeScore(gIdx, delta) {
+      const cls = CLASSES_DATA[currentClassKey];
+      cls.scores[gIdx] = Math.max(0, cls.scores[gIdx] + delta);
+      renderGroups();
+    }
+
+    function awardAllGroups(pts) {
+      CLASSES_DATA[currentClassKey].scores = CLASSES_DATA[currentClassKey].scores.map(s => s + pts);
+      renderGroups();
+    }
+
+    function resetClassScores() {
+      CLASSES_DATA[currentClassKey].scores = [0, 0, 0, 0, 0, 0];
+      renderGroups();
+    }
+
+    function toggleGrades() {
+      showGradesFlag = !showGradesFlag;
+      renderGroups();
+    }
+
+    function pickRandomStudent() {
+      const cls = CLASSES_DATA[currentClassKey];
+      const gIdx = Math.floor(Math.random() * 6);
+      const groupStudents = cls.groups[gIdx];
+      const st = groupStudents[Math.floor(Math.random() * groupStudents.length)];
+      const meta = OMAN_GROUPS_META[gIdx];
+      showModal("🎲 القرعة العشوائية للطالب المشارك", `
+        <p style="color:#0284c7; margin-bottom:8px;">${meta.name}</p>
+        <div style="font-size:1.5rem; color:#0f172a; background:#fef9c3; padding:14px; border-radius:14px; border:2px solid #eab308;">
+          👦 ${st.name}
+        </div>
+      `);
+    }
+
+    function openTab(tabId, btn) {
+      document.querySelectorAll(".section-panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+    }
+
+    /* =========================================================================
+       ٣. تدريبات الكتاب لدرس ١١-١ نظام الأعداد (١) (نسخ مطابق للصور مع إخفاء الحل)
+       ========================================================================= */
+    let currentExIndex = 0;
+
+    function loadExercise(idx, btn) {
+      currentExIndex = idx;
+      if (btn) {
+        document.querySelectorAll(".ex-nav-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      const titleEl = document.getElementById("ex-title");
+      const descEl = document.getElementById("ex-desc");
+      const stageEl = document.getElementById("svg-stage-container");
+      const btnsEl = document.getElementById("ex-buttons");
+      const stepsEl = document.getElementById("ex-solution-steps");
+      stepsEl.classList.remove("visible");
+
+      // أزرار التحكم الموحدة (إظهار / إخفاء الحل عند الضغط فقط)
+      btnsEl.innerHTML = `
+        <button class="action-btn btn-green" onclick="toggleExerciseSolution(true)">👁️ إظهار الحل النموذجي والتوضيح</button>
+        <button class="action-btn btn-red" onclick="toggleExerciseSolution(false)">🙈 إخفاء الحل</button>
+      `;
+
+      // ---------------- ٠. نشاط لنستكشف ----------------
+      if (idx === 0) {
+        titleEl.innerText = "لنستكشف";
+        descEl.innerHTML = `
+          تفكر منى في عددٍ.<br>
+          <div style="background:#fffbeb; border:3px solid #f59e0b; border-radius:24px; padding:14px 20px; margin:12px 0; text-align:center; color:#1d4ed8;">
+            « عِنْدما أُقرِّب العدد إلى أقرب ١٠ تكون الإجابة ١٠٨٠<br>
+            عِنْدما أُقرِّب الإجابة إلى أقرب ١٠٠ تكون الإجابة ١١٠٠ »
+          </div>
+          • ما أصغرُ عددٍ يمكنُ أنْ تفكر فيه منى؟<br>
+          • ما أكبرُ عددٍ يمكنُ أنْ تفكر فيه منى؟
+          <div style="font-size:0.9rem; color:#0369a1; margin-top:6px;">💡 تلميح الكتاب: انظُرْ إلى السؤال ١ ليعطيك مفتاح الإجابة.</div>
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 260" width="100%" height="260">
+            <text x="325" y="32" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">خط الأعداد للأعداد التي تُقرَّب إلى ١٠٨٠ (لأقرب ١٠)</text>
+            <!-- خط الأعداد من 1074 إلى 1085 -->
+            <line x1="40" y1="120" x2="610" y2="120" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="30,120 46,112 46,128" fill="#65a30d"/>
+            <polygon points="620,120 604,112 604,128" fill="#65a30d"/>
+            ${[1074,1075,1076,1077,1078,1079,1080,1081,1082,1083,1084,1085].map((num, i) => {
+              const x = 60 + i * 48;
+              const isCenter = num === 1080;
+              return `
+                <line x1="${x}" y1="108" x2="${x}" y2="132" stroke="${isCenter ? '#c8102e' : '#334155'}" stroke-width="${isCenter ? 4 : 2.5}"/>
+                <text x="${x}" y="156" text-anchor="middle" font-size="14" font-weight="${isCenter ? '900' : '700'}" fill="${isCenter ? '#c8102e' : '#1e293b'}">${num}</text>
+              `;
+            }).join("")}
+            <!-- عناصر الحل المخفية -->
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="92" y="65" width="464" height="34" rx="10" fill="rgba(22,163,74,0.15)" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,4"/>
+              <text x="325" y="88" text-anchor="middle" font-weight="900" font-size="15" fill="#15803d">نطاق الأعداد التي تقرب إلى ١٠٨٠: من ١٠٧٥ إلى ١٠٨٤</text>
+              <circle cx="108" cy="120" r="9" fill="#16a34a"/>
+              <text x="108" y="205" text-anchor="middle" font-weight="900" font-size="15" fill="#15803d">أصغر عدد = ١٠٧٥</text>
+              <circle cx="540" cy="120" r="9" fill="#c8102e"/>
+              <text x="540" y="205" text-anchor="middle" font-weight="900" font-size="15" fill="#c8102e">أكبر عدد = ١٠٨٤</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي لنشاط لنستكشف:</strong><br>
+          • الأعداد الصحيحة التي تُقرَّب إلى <strong>١٠٨٠</strong> (لأقرب ١٠) هي: ١٠٧٥ ، ١٠٧٦ ، ١٠٧٧ ، ١٠٧٨ ، ١٠٧٩ ، ١٠٨٠ ، ١٠٨١ ، ١٠٨٢ ، ١٠٨٣ ، ١٠٨٤ (وجميعها عند تقريب ١٠٨٠ لأقرب ١٠٠ تعطي ١١٠٠).<br>
+          • <strong>أصغر عدد يمكن أن تفكر فيه منى هو: ١٠٧٥</strong>.<br>
+          • <strong>أكبر عدد يمكن أن تفكر فيه منى هو: ١٠٨٤</strong>.
+        `;
+      }
+
+      // ---------------- ١. السؤال الأول ----------------
+      else if (idx === 1) {
+        titleEl.innerText = "السؤال (١)";
+        descEl.innerHTML = `
+          ١) قُرِّبَ عددٌ إلى أقرب ١٠ ، وكان الجواب ٥٠ . ما العدد؟
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 250" width="100%" height="250">
+            <text x="325" y="32" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">الأعداد التي تُقرَّب إلى ٥٠ عند التقريب لأقرب ١٠</text>
+            <line x1="40" y1="125" x2="610" y2="125" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="30,125 46,117 46,133" fill="#65a30d"/>
+            <polygon points="620,125 604,117 604,133" fill="#65a30d"/>
+            ${[44,45,46,47,48,49,50,51,52,53,54,55].map((num, i) => {
+              const x = 60 + i * 48;
+              const isFifty = num === 50;
+              return `
+                <line x1="${x}" y1="112" x2="${x}" y2="138" stroke="${isFifty ? '#c8102e' : '#334155'}" stroke-width="${isFifty ? 4 : 2.5}"/>
+                <text x="${x}" y="162" text-anchor="middle" font-size="16" font-weight="900" fill="${isFifty ? '#c8102e' : '#1e293b'}">${num}</text>
+              `;
+            }).join("")}
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="92" y="65" width="465" height="38" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+              <text x="325" y="90" text-anchor="middle" font-weight="900" font-size="16" fill="#14532d">الإجابات الممكنة: ٤٥ ، ٤٦ ، ٤٧ ، ٤٨ ، ٤٩ ، ٥٠ ، ٥١ ، ٥٢ ، ٥٣ ، ٥٤</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (١):</strong><br>
+          • أي عدد صحيح من <strong>٤٥ إلى ٥٤</strong> يُقرب إلى <strong>٥٠</strong> لأقرب عشرة.<br>
+          • الأعداد هي: <strong>٤٥ ، ٤٦ ، ٤٧ ، ٤٨ ، ٤٩ ، ٥٠ ، ٥١ ، ٥٢ ، ٥٣ ، ٥٤</strong> (يكفي أن يذكر الطالب أياً منها أو يحدد المدى).
+        `;
+      }
+
+      // ---------------- ٢. السؤال الثاني ----------------
+      else if (idx === 2) {
+        titleEl.innerText = "السؤال (٢)";
+        descEl.innerHTML = `
+          ٢) <span id="box-q2" class="missing-box">؟</span> تم تقريبه إلى أقرب ١٠ ، وكان الجواب ٧٠٠ . ما العدد المفقود؟
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 250" width="100%" height="250">
+            <text x="325" y="32" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">خط الأعداد حول العدد ٧٠٠ (التقريب لأقرب ١٠)</text>
+            <line x1="40" y1="125" x2="610" y2="125" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="30,125 46,117 46,133" fill="#65a30d"/>
+            <polygon points="620,125 604,117 604,133" fill="#65a30d"/>
+            ${[694,695,696,697,698,699,700,701,702,703,704,705].map((num, i) => {
+              const x = 60 + i * 48;
+              const isCenter = num === 700;
+              return `
+                <line x1="${x}" y1="112" x2="${x}" y2="138" stroke="${isCenter ? '#c8102e' : '#334155'}" stroke-width="${isCenter ? 4 : 2.5}"/>
+                <text x="${x}" y="162" text-anchor="middle" font-size="15" font-weight="900" fill="${isCenter ? '#c8102e' : '#1e293b'}">${num}</text>
+              `;
+            }).join("")}
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="92" y="65" width="465" height="38" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+              <text x="325" y="90" text-anchor="middle" font-weight="900" font-size="16" fill="#14532d">العدد المفقود يمكن أن يكون أي عدد من ٦٩٥ إلى ٧٠٤</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٢):</strong><br>
+          • بما أن التقريب إلى <strong>أقرب ١٠</strong> وكان الناتج <strong>٧٠٠</strong>، فإن العدد المفقود يقع بين <strong>٦٩٥ و ٧٠٤</strong>.<br>
+          • الأعداد الصحيحة الممكنة هي: <strong>٦٩٥ ، ٦٩٦ ، ٦٩٧ ، ٦٩٨ ، ٦٩٩ ، ٧٠٠ ، ٧٠١ ، ٧٠٢ ، ٧٠٣ ، ٧٠٤</strong>.
+        `;
+      }
+
+      // ---------------- ٣. السؤال الثالث ----------------
+      else if (idx === 3) {
+        titleEl.innerText = "السؤال (٣)";
+        descEl.innerHTML = `
+          ٣) اكتُبْ بالأرقام عددًا أكبر من ألفٍ، لكنه أقل من ألفٍ ومائة.
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 240" width="100%" height="240">
+            <text x="325" y="35" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">الأعداد الواقعة بين ١٠٠٠ (ألف) و ١١٠٠ (ألف ومائة)</text>
+            <line x1="60" y1="125" x2="590" y2="125" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="48,125 64,117 64,133" fill="#65a30d"/>
+            <polygon points="602,125 586,117 586,133" fill="#65a30d"/>
+            <line x1="110" y1="105" x2="110" y2="145" stroke="#1e293b" stroke-width="4"/>
+            <text x="110" y="172" text-anchor="middle" font-size="18" font-weight="900">١٠٠٠</text>
+            <line x1="540" y1="105" x2="540" y2="145" stroke="#1e293b" stroke-width="4"/>
+            <text x="540" y="172" text-anchor="middle" font-size="18" font-weight="900">١١٠٠</text>
+
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="130" y="65" width="390" height="40" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+              <text x="325" y="91" text-anchor="middle" font-weight="900" font-size="16" fill="#14532d">أي عدد من ١٠٠١ إلى ١٠٩٩ (مثل: ١٠٢٥ ، ١٠٥٠ ، ١٠٩٩)</text>
+              <circle cx="325" cy="125" r="8" fill="#c8102e"/>
+              <text x="325" y="168" text-anchor="middle" font-size="17" font-weight="900" fill="#c8102e">١٠٥٠</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٣):</strong><br>
+          • الألف بالأرقام هو <strong>١٠٠٠</strong>، والألف ومائة هو <strong>١١٠٠</strong>.<br>
+          • أي عدد صحيح يقع بينهما هو إجابة صحيحة، أي من <strong>١٠٠١ إلى ١٠٩٩</strong> (أمثلة: <strong>١٠٠١ ، ١٠٢٠ ، ١٠٥٠ ، ١٠٨٥ ، ١٠٩٩</strong>).
+        `;
+      }
+
+      // ---------------- ٤. السؤال الرابع ----------------
+      else if (idx === 4) {
+        titleEl.innerText = "السؤال (٤)";
+        descEl.innerHTML = `
+          ٤) أَوْجِدْ عددًا صحيحًا يجعلُ العبارة الآتية صحيحةً.<br>
+          <div style="text-align:center; font-size:1.5rem; margin-top:10px;" dir="rtl">
+            ٢٤٠٠٠ &lt; <span id="box-q4" class="missing-box">؟</span> &lt; ٢٥٠٠٠
+          </div>
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 240" width="100%" height="240">
+            <text x="325" y="35" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">تمثيل المتباينة على خط الأعداد بين ٢٤٠٠٠ و ٢٥٠٠٠</text>
+            <line x1="60" y1="125" x2="590" y2="125" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="48,125 64,117 64,133" fill="#65a30d"/>
+            <polygon points="602,125 586,117 586,133" fill="#65a30d"/>
+            <line x1="110" y1="105" x2="110" y2="145" stroke="#1e293b" stroke-width="4"/>
+            <text x="110" y="172" text-anchor="middle" font-size="18" font-weight="900">٢٤٠٠٠</text>
+            <line x1="540" y1="105" x2="540" y2="145" stroke="#1e293b" stroke-width="4"/>
+            <text x="540" y="172" text-anchor="middle" font-size="18" font-weight="900">٢٥٠٠٠</text>
+
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="130" y="60" width="390" height="42" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+              <text x="325" y="87" text-anchor="middle" font-weight="900" font-size="16" fill="#14532d">أي عدد صحيح من ٢٤٠٠١ إلى ٢٤٩٩٩ (مثل: ٢٤٥٠٠)</text>
+              <circle cx="325" cy="125" r="8" fill="#16a34a"/>
+              <text x="325" y="168" text-anchor="middle" font-size="17" font-weight="900" fill="#15803d">٢٤٥٠٠</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٤):</strong><br>
+          • العبارة تعني أن العدد المطلوب أكبر من <strong>٢٤٠٠٠</strong> وأصغر من <strong>٢٥٠٠٠</strong>.<br>
+          • أي عدد صحيح من <strong>٢٤٠٠١ إلى ٢٤٩٩٩</strong> يحقق العبارة (مثل: <strong>٢٤٠٠١ ، ٢٤٣٠٠ ، ٢٤٥٠٠ ، ٢٤٩٩٩</strong>).
+        `;
+      }
+
+      // ---------------- ٥. السؤال الخامس ----------------
+      else if (idx === 5) {
+        titleEl.innerText = "السؤال (٥)";
+        descEl.innerHTML = `
+          ٥) انسخ خطَّ الأعداد الآتي، وارسُمْ سهْمًا (<span style="color:#ef4444; font-weight:900;">↓</span>) لتوضيح مكان ٨٥٠٠ على خطِّ الأعداد:
+        `;
+
+        // في الكتاب: خط الأعداد مرسوم من اليسار (٠) عند x=130 إلى اليمين (١٠٠٠٠) عند x=530 (طول القطعة 400 بكسل)
+        // موقع 8500 يقع عند 85% من المسافة أي: 130 + 0.85 * 400 = 470
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 260" width="100%" height="260">
+            <!-- خط الأعداد الأخضر المطابق للكتاب -->
+            <line x1="80" y1="150" x2="570" y2="150" stroke="#7cb342" stroke-width="5"/>
+            <polygon points="65,150 85,142 85,158" fill="#7cb342"/>
+            <polygon points="585,150 565,142 565,158" fill="#7cb342"/>
+
+            <!-- علامة 0 يساراً وعلامة 10000 يميناً كما في صورة الكتاب -->
+            <line x1="130" y1="125" x2="130" y2="150" stroke="#7cb342" stroke-width="4.5"/>
+            <text x="130" y="182" text-anchor="middle" font-size="20" font-weight="900" fill="#7cb342">٠</text>
+
+            <line x1="530" y1="125" x2="530" y2="150" stroke="#7cb342" stroke-width="4.5"/>
+            <text x="530" y="182" text-anchor="middle" font-size="20" font-weight="900" fill="#7cb342">١٠٠٠٠</text>
+
+            <!-- التقسيمات المساعدة والسهم الأحمر (مخفية وتظهر عند الضغط) -->
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <!-- منتصف الخط 5000 عند x=330 -->
+              <line x1="330" y1="138" x2="330" y2="158" stroke="#64748b" stroke-width="2.5" stroke-dasharray="3,3"/>
+              <text x="330" y="180" text-anchor="middle" font-size="14" font-weight="800" fill="#64748b">٥٠٠٠</text>
+
+              <!-- تدرجات الألف -->
+              ${[1,2,3,4,6,7,8,9].map(k => {
+                const x = 130 + k * 40;
+                return `
+                  <line x1="${x}" y1="143" x2="${x}" y2="155" stroke="#94a3b8" stroke-width="2"/>
+                  <text x="${x}" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">${k*1000}</text>
+                `;
+              }).join("")}
+
+              <!-- السهم الأحمر عند 8500 (x = 470) -->
+              <line x1="470" y1="55" x2="470" y2="138" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
+              <polyline points="458,124 470,140 482,124" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="425" y="18" width="90" height="32" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+              <text x="470" y="40" text-anchor="middle" font-size="18" font-weight="900" fill="#b91c1c">٨٥٠٠</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٥):</strong><br>
+          • منتصف المسافة بين <strong>٠</strong> و <strong>١٠٠٠٠</strong> هو العدد <strong>٥٠٠٠</strong>.<br>
+          • العدد <strong>٨٥٠٠</strong> يقع في المنتصف تماماً بين <strong>٨٠٠٠</strong> و <strong>٩٠٠٠</strong> (أي عند $85\\%$ من طول المسافة باتجاه اليمين نحو ١٠٠٠٠).
+        `;
+      }
+
+      // ---------------- ٦. السؤال السادس ----------------
+      else if (idx === 6) {
+        titleEl.innerText = "السؤال (٦)";
+        descEl.innerHTML = `
+          ٦) انظُرْ إلى خطِّ الأعداد، ثُمَّ أكملِ العبارة:<br>
+          <div style="margin-top:10px;">
+            ( أ ) يقع العدد ٦٠٠٠ في منتصف المسافة بين <span id="box-q6a" class="missing-box white-box">؟</span> و ٧٢٠٠
+          </div>
+          <div style="margin-top:10px;">
+            (ب) يقع العدد ٦٠٠٠ في منتصف المسافة بين ١٥٠٠ و <span id="box-q6b" class="missing-box white-box">؟</span>
+          </div>
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 260" width="100%" height="260">
+            <!-- خط الأعداد الأخضر المطابق للكتاب مع 3 علامات متساوية المسافة -->
+            <line x1="80" y1="120" x2="570" y2="120" stroke="#7cb342" stroke-width="5"/>
+            <polygon points="65,120 85,112 85,128" fill="#7cb342"/>
+            <polygon points="585,120 565,112 565,128" fill="#7cb342"/>
+
+            <!-- العلامة اليسرى (x=150) -->
+            <line x1="150" y1="92" x2="150" y2="120" stroke="#7cb342" stroke-width="4.5"/>
+            <!-- العلامة الوسطى 6000 (x=325) -->
+            <line x1="325" y1="92" x2="325" y2="120" stroke="#7cb342" stroke-width="4.5"/>
+            <text x="325" y="152" text-anchor="middle" font-size="20" font-weight="900" fill="#7cb342">٦٠٠٠</text>
+            <!-- العلامة اليمنى (x=500) -->
+            <line x1="500" y1="92" x2="500" y2="120" stroke="#7cb342" stroke-width="4.5"/>
+
+            <!-- التوضيح والحل المخفي -->
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <!-- قفزات (أ) -->
+              <path d="M 325 85 Q 412 35 500 85" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="5,4"/>
+              <text x="412" y="52" text-anchor="middle" font-size="14" font-weight="900" fill="#0369a1">+ ١٢٠٠ (إلى ٧٢٠٠)</text>
+
+              <path d="M 325 85 Q 237 35 150 85" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="5,4"/>
+              <text x="237" y="52" text-anchor="middle" font-size="14" font-weight="900" fill="#15803d">- ١٢٠٠ (يساوي ٤٨٠٠)</text>
+
+              <!-- نتائج (أ) و (ب) أسفل الخط -->
+              <rect x="85" y="175" width="220" height="62" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+              <text x="195" y="200" text-anchor="middle" font-size="15" font-weight="900" fill="#14532d">( أ ) العدد الأول = ٤٨٠٠</text>
+              <text x="195" y="224" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">لأن ٦٠٠٠ - ١٢٠٠ = ٤٨٠٠</text>
+
+              <rect x="345" y="175" width="220" height="62" rx="10" fill="#eff6ff" stroke="#0284c7" stroke-width="2"/>
+              <text x="455" y="200" text-anchor="middle" font-size="15" font-weight="900" fill="#1e3a8a">(ب) العدد الثاني = ١٠٥٠٠</text>
+              <text x="455" y="224" text-anchor="middle" font-size="13" font-weight="700" fill="#0369a1">لأن ٦٠٠٠ + ٤٥٠٠ = ١٠٥٠٠</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٦):</strong><br>
+          • <strong>الفرع ( أ ):</strong> المسافة من ٦٠٠٠ إلى ٧٢٠٠ تساوي $7200 - 6000 = 1200$. نطرح نفس المسافة من ٦٠٠٠: $6000 - 1200 =$ <strong>٤٨٠٠</strong>.<br>
+          • <strong>الفرع (ب):</strong> المسافة من ١٥٠٠ إلى ٦٠٠٠ تساوي $6000 - 1500 = 4500$. نجمع نفس المسافة مع ٦٠٠٠: $6000 + 4500 =$ <strong>١٠٥٠٠</strong>.
+        `;
+      }
+
+      // ---------------- ٧. السؤال السابع ----------------
+      else if (idx === 7) {
+        titleEl.innerText = "السؤال (٧)";
+        descEl.innerHTML = `
+          ٧) أيٌّ من الأعداد أقرب إلى ١٠٠٠٠ ؟<br>
+          هل ٩٩٦٠ أو ١٠٠٦٠ ؟<br>
+          اشرح كيف عرفتْ.
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 250" width="100%" height="250">
+            <text x="325" y="32" text-anchor="middle" font-weight="900" font-size="18" fill="#1e3a8a">مقارنة المسافة عن العدد ١٠٠٠٠ على خط الأعداد</text>
+            <line x1="60" y1="135" x2="590" y2="135" stroke="#65a30d" stroke-width="5"/>
+            <polygon points="48,135 64,127 64,143" fill="#65a30d"/>
+            <polygon points="602,135 586,127 586,143" fill="#65a30d"/>
+
+            <!-- 9960 (x=175) -->
+            <line x1="175" y1="115" x2="175" y2="155" stroke="#0284c7" stroke-width="4"/>
+            <text x="175" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#0369a1">٩٩٦٠</text>
+
+            <!-- 10000 (x=325) -->
+            <line x1="325" y1="110" x2="325" y2="160" stroke="#c8102e" stroke-width="5"/>
+            <text x="325" y="185" text-anchor="middle" font-size="20" font-weight="900" fill="#c8102e">١٠٠٠٠</text>
+
+            <!-- 10060 (x=535) -->
+            <line x1="535" y1="115" x2="535" y2="155" stroke="#b45309" stroke-width="4"/>
+            <text x="535" y="182" text-anchor="middle" font-size="18" font-weight="900" fill="#b45309">١٠٠٦٠</text>
+
+            <!-- الحل المخفي -->
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <path d="M 175 105 Q 250 55 325 105" fill="none" stroke="#16a34a" stroke-width="3.5"/>
+              <rect x="200" y="48" width="100" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+              <text x="250" y="69" text-anchor="middle" font-size="15" font-weight="900" fill="#15803d">الفرق = ٤٠</text>
+
+              <path d="M 325 105 Q 430 55 535 105" fill="none" stroke="#ef4444" stroke-width="3.5" stroke-dasharray="5,4"/>
+              <rect x="380" y="48" width="100" height="30" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+              <text x="430" y="69" text-anchor="middle" font-size="15" font-weight="900" fill="#b91c1c">الفرق = ٦٠</text>
+
+              <text x="325" y="228" text-anchor="middle" font-size="18" font-weight="900" fill="#15803d">✅ العدد ٩٩٦٠ أقرب إلى ١٠٠٠٠ لأن ٤٠ أصغر من ٦٠</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٧):</strong><br>
+          • <strong>العدد الأقرب إلى ١٠٠٠٠ هو: ٩٩٦٠</strong>.<br>
+          • <strong>التفسير:</strong> لأن العدد <strong>٩٩٦٠</strong> يبعد عن ١٠٠٠٠ بمقدار <strong>٤٠ فقط</strong> ($10000 - 9960 = 40$)، بينما العدد <strong>١٠٠٦٠</strong> يبعد عن ١٠٠٠٠ بمقدار <strong>٦٠</strong> ($10060 - 10000 = 60$).
+        `;
+      }
+
+      // ---------------- ٨. السؤال الثامن ----------------
+      else if (idx === 8) {
+        titleEl.innerText = "السؤال (٨)";
+        descEl.innerHTML = `
+          ٨) قُدِّرت تكلفة الرحلة ما بين ١٦٠٠ ريال عماني، و ٢١٠٠ ريال عماني.<br>
+          أيٌّ من الأسعار الآتية يمكن أن يُعبِّر عن تكلفة الرحلة؟<br>
+          <div style="display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:14px;">
+            <span id="p-1569" class="price-card">١٥٦٩ ريالًا عمانيًّا</span>
+            <span id="p-2090" class="price-card">٢٠٩٠ ريالًا عمانيًّا</span>
+            <span id="p-2130" class="price-card">٢١٣٠ ريالًا عمانيًّا</span>
+            <span id="p-1999" class="price-card">١٩٩٩ ريالًا عمانيًّا</span>
+          </div>
+        `;
+
+        stageEl.innerHTML = `
+          <svg viewBox="0 0 650 280" width="100%" height="280">
+            <!-- خلفية الشاطئ العماني والنخلة والطيور كما في صورة الكتاب -->
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#bae6fd"/>
+                <stop offset="65%" stop-color="#e0f2fe"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="650" height="175" fill="url(#skyGrad)"/>
+            <rect x="0" y="175" width="650" height="65" fill="#38bdf8"/>
+            <path d="M0,240 Q325,228 650,240 L650,280 L0,280 Z" fill="#fde68a"/>
+
+            <!-- طيور النورس -->
+            <path d="M350,45 Q360,35 370,45 Q380,35 390,45" fill="none" stroke="#475569" stroke-width="2.5"/>
+            <path d="M420,65 Q430,55 440,65 Q450,55 460,65" fill="none" stroke="#475569" stroke-width="2.5"/>
+
+            <!-- النخلة العمانية -->
+            <path d="M585,275 Q565,200 545,140" fill="none" stroke="#a16207" stroke-width="14" stroke-linecap="round"/>
+            <path d="M545,140 Q500,130 485,155" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round"/>
+            <path d="M545,140 Q515,105 495,120" fill="none" stroke="#16a34a" stroke-width="8" stroke-linecap="round"/>
+            <path d="M545,140 Q575,105 605,125" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round"/>
+            <path d="M545,140 Q590,135 615,160" fill="none" stroke="#16a34a" stroke-width="8" stroke-linecap="round"/>
+
+            <!-- خط الأعداد لتكلفة الرحلة بين 1600 و 2100 -->
+            <line x1="50" y1="120" x2="500" y2="120" stroke="#0f172a" stroke-width="4"/>
+            <line x1="120" y1="102" x2="120" y2="138" stroke="#1e3a8a" stroke-width="4"/>
+            <text x="120" y="160" text-anchor="middle" font-size="16" font-weight="900" fill="#1e3a8a">١٦٠٠</text>
+
+            <line x1="420" y1="102" x2="420" y2="138" stroke="#1e3a8a" stroke-width="4"/>
+            <text x="420" y="160" text-anchor="middle" font-size="16" font-weight="900" fill="#1e3a8a">٢١٠٠</text>
+
+            <!-- الحل المخفي على خط الأعداد -->
+            <g class="sol-visual" style="opacity:0; transition:opacity 0.5s;">
+              <rect x="120" y="70" width="300" height="32" rx="6" fill="rgba(22,163,74,0.22)" stroke="#16a34a" stroke-width="2"/>
+              <text x="270" y="92" text-anchor="middle" font-size="14" font-weight="900" fill="#14532d">نطاق تكلفة الرحلة (١٦٠٠ إلى ٢١٠٠ ر.ع)</text>
+
+              <!-- 1569 خارج يسار -->
+              <circle cx="90" cy="120" r="6" fill="#ef4444"/>
+              <text x="90" y="95" text-anchor="middle" font-size="13" font-weight="900" fill="#b91c1c">١٥٦٩ ❌</text>
+
+              <!-- 1999 داخل -->
+              <circle cx="355" cy="120" r="7" fill="#16a34a"/>
+              <text x="355" y="205" text-anchor="middle" font-size="15" font-weight="900" fill="#14532d">١٩٩٩ ✅</text>
+
+              <!-- 2090 داخل -->
+              <circle cx="408" cy="120" r="7" fill="#16a34a"/>
+              <text x="408" y="232" text-anchor="middle" font-size="15" font-weight="900" fill="#14532d">٢٠٩٠ ✅</text>
+
+              <!-- 2130 خارج يمين -->
+              <circle cx="455" cy="120" r="6" fill="#ef4444"/>
+              <text x="455" y="95" text-anchor="middle" font-size="13" font-weight="900" fill="#b91c1c">٢١٣٠ ❌</text>
+            </g>
+          </svg>
+        `;
+
+        stepsEl.innerHTML = `
+          <strong>الحل النموذجي للسؤال (٨):</strong><br>
+          • الأسعار التي تقع بين <strong>١٦٠٠ ريال عماني</strong> و <strong>٢١٠٠ ريال عماني</strong> هي:<br>
+          ✅ <strong>٢٠٩٠ ريالًا عمانيًّا</strong> و <strong>١٩٩٩ ريالًا عمانيًّا</strong>.<br>
+          • بينما يُستبعد السعر ١٥٦٩ (لأنه أقل من ١٦٠٠) ويُستبعد السعر ٢١٣٠ (لأنه أكبر من ٢١٠٠).
+        `;
+      }
+    }
+
+    // دالة إظهار أو إخفاء الحل عند الضغط
+    function toggleExerciseSolution(show) {
+      const stepsEl = document.getElementById("ex-solution-steps");
+      if (show) {
+        stepsEl.classList.add("visible");
+      } else {
+        stepsEl.classList.remove("visible");
+      }
+
+      // إظهار / إخفاء العناصر البصرية داخل الـ SVG
+      document.querySelectorAll("#svg-stage-container .sol-visual").forEach(el => {
+        el.style.opacity = show ? "1" : "0";
+      });
+
+      // تحديث الصناديق المفقودة والبطاقات حسب رقم السؤال
+      if (currentExIndex === 2) {
+        const b2 = document.getElementById("box-q2");
+        if (b2) {
+          b2.innerText = show ? "٦٩٥ إلى ٧٠٤" : "؟";
+          b2.classList.toggle("solved", show);
+        }
+      } else if (currentExIndex === 4) {
+        const b4 = document.getElementById("box-q4");
+        if (b4) {
+          b4.innerText = show ? "٢٤٥٠٠" : "؟";
+          b4.classList.toggle("solved", show);
+        }
+      } else if (currentExIndex === 6) {
+        const b6a = document.getElementById("box-q6a");
+        const b6b = document.getElementById("box-q6b");
+        if (b6a && b6b) {
+          b6a.innerText = show ? "٤٨٠٠" : "؟";
+          b6b.innerText = show ? "١٠٥٠٠" : "؟";
+          b6a.classList.toggle("solved", show);
+          b6b.classList.toggle("solved", show);
+        }
+      } else if (currentExIndex === 8) {
+        const p1569 = document.getElementById("p-1569");
+        const p2090 = document.getElementById("p-2090");
+        const p2130 = document.getElementById("p-2130");
+        const p1999 = document.getElementById("p-1999");
+        if (p2090 && p1999) {
+          p2090.classList.toggle("winner", show);
+          p1999.classList.toggle("winner", show);
+          p1569.classList.toggle("excluded", show);
+          p2130.classList.toggle("excluded", show);
+        }
+      }
+    }
+
+    /* =========================================================================
+       ٤. مسابقة التحدي التفاعلية (٦ أسئلة اختيار من متعدد حول درس ١١-١ نظام الأعداد)
+       ========================================================================= */
+    const QUIZ_QUESTIONS = [
+      {
+        q: "تحدي مجموعة جامع السلطان قابوس: يفكر سالم في عدد؛ عندما يقربه إلى أقرب ١٠ تكون الإجابة ٦٤٠. ما أصغر عدد صحيح يمكن أن يفكر فيه سالم؟",
+        options: ["٦٣٥", "٦٣٤", "٦٤١", "٦٤٤"],
+        correct: 0,
+        explain: "أصغر عدد يُقرب لأقرب ١٠ ليعطي ٦٤٠ هو ٦٣٥ (لأن الآحاد ٥ تُقرب للأعلى إلى ٦٤٠).",
+        lineMin: "٦٣٠", lineMid: "٦٣٥", lineMax: "٦٤٠"
+      },
+      {
+        q: "تحدي مجموعة برج الصحوة: أيٌّ من الأعداد الآتية عند تقريبه إلى أقرب ١٠ يكون الجواب ٩٠٠؟",
+        options: ["٨٩٦", "٨٩٤", "٩٠٥", "٨٨٩"],
+        correct: 0,
+        explain: "العدد ٨٩٦ يقع بين ٨٩٥ و ٩٠٤، وعند تقريبه لأقرب ١٠ يصبح ٩٠٠.",
+        lineMin: "٨٩٥", lineMid: "٨٩٦", lineMax: "٩٠٤"
+      },
+      {
+        q: "تحدي مجموعة قلعة نزوى: أيٌّ من الأعداد الآتية يجعل المتباينة ( ٣٥٠٠٠ < [ ؟ ] < ٣٦٠٠٠ ) صحيحة؟",
+        options: ["٣٥٤٠٠", "٣٤٩٩٩", "٣٦٠٥٠", "٣٥٠٠٠"],
+        correct: 0,
+        explain: "العدد ٣٥٤٠٠ أكبر من ٣٥٠٠٠ وأصغر من ٣٦٠٠٠.",
+        lineMin: "٣٥٠٠٠", lineMid: "٣٥٤٠٠", lineMax: "٣٦٠٠٠"
+      },
+      {
+        q: "تحدي مجموعة كورنيش مطرح: يقع العدد ٤٠٠٠ في منتصف المسافة تماماً بين ٢٠٠٠ و [ ؟ ] على خط الأعداد. ما العدد المفقود؟",
+        options: ["٦٠٠٠", "٥٠٠٠", "٣٠٠٠", "٨٠٠٠"],
+        correct: 0,
+        explain: "المسافة من ٢٠٠٠ إلى ٤٠٠٠ هي ٢٠٠٠، نضيف ٢٠٠٠ إلى ٤٠٠٠ فنحصل على ٦٠٠٠.",
+        lineMin: "٢٠٠٠", lineMid: "٤٠٠٠", lineMax: "٦٠٠٠"
+      },
+      {
+        q: "تحدي مجموعة صلالة: أيٌّ من الأعداد الآتية هو الأقرب إلى العدد ١٠٠٠٠ على خط الأعداد؟",
+        options: ["١٠٠٢٠", "٩٩٥٠", "١٠٠٥٠", "٩٩٢٠"],
+        correct: 0,
+        explain: "العدد ١٠٠٢٠ يبعد ٢٠ وحدة فقط عن ١٠٠٠٠، بينما بقية الأعداد تبعد ٥٠ أو ٨٠ وحدة.",
+        lineMin: "٩٩٥٠", lineMid: "١٠٠٠٠", lineMax: "١٠٠٢٠"
+      },
+      {
+        q: "تحدي مجموعة الجبل الأخضر: قُدِّرت المسافة لرحلة مدرسية ما بين ١٢٠٠ م و ١٥٠٠ م. أيُّ مسافة مما يلي تقع ضمن هذا التقدير؟",
+        options: ["١٣٨٠ م", "١١٩٠ م", "١٥٢٠ م", "١٦٠٠ م"],
+        correct: 0,
+        explain: "العدد ١٣٨٠ أكبر من ١٢٠٠ وأصغر من ١٥٠٠.",
+        lineMin: "١٢٠٠", lineMid: "١٣٨٠", lineMax: "١٥٠٠"
+      }
+    ];
+
+    let currentQuizIdx = 0;
+    let selectedTeamIdx = 0;
+    let quizTimer = null;
+    let timeLeft = 30;
+
+    function renderQuizScoreboard() {
+      const board = document.getElementById("quiz-scoreboard");
+      if (!board) return;
+      const cls = CLASSES_DATA[currentClassKey];
+      board.innerHTML = OMAN_GROUPS_META.map((m, idx) => `
+        <div class="mini-score-card ${idx === selectedTeamIdx ? 'selected-team' : ''}" onclick="selectQuizTeam(${idx})">
+          <div style="font-weight:900; font-size:0.86rem; color:#1e293b;">${m.name}</div>
+          <div style="font-size:1.35rem; font-weight:900; color:var(--oman-red);">${cls.scores[idx]}</div>
+        </div>
+      `).join("");
+
+      const indicator = document.getElementById("active-team-indicator");
+      if (indicator) {
+        indicator.innerText = `المجموعة المتحدية: ${OMAN_GROUPS_META[selectedTeamIdx].name}`;
+      }
+    }
+
+    function selectQuizTeam(idx) {
+      selectedTeamIdx = idx;
+      renderQuizScoreboard();
+    }
+
+    function selectRandomQuizTeam() {
+      selectedTeamIdx = Math.floor(Math.random() * 6);
+      renderQuizScoreboard();
+      const cls = CLASSES_DATA[currentClassKey];
+      const stList = cls.groups[selectedTeamIdx];
+      const st = stList[Math.floor(Math.random() * stList.length)];
+      showModal("🎯 قرعة التحدي المباشر", `
+        <p style="color:var(--oman-red); font-size:1.3rem;">${OMAN_GROUPS_META[selectedTeamIdx].name}</p>
+        <p style="margin-top:8px;">يمثلها البطل: <strong>${st.name}</strong></p>
+      `);
+    }
+
+    function loadQuizQuestion() {
+      const item = QUIZ_QUESTIONS[currentQuizIdx];
+      document.getElementById("quiz-q-counter").innerText = `السؤال ${currentQuizIdx + 1} من ${QUIZ_QUESTIONS.length}`;
+      document.getElementById("quiz-q-text").innerText = item.q;
+
+      const fb = document.getElementById("quiz-feedback");
+      fb.classList.remove("visible");
+      fb.innerHTML = "";
+
+      const optsBox = document.getElementById("quiz-options");
+      optsBox.innerHTML = item.options.map((opt, i) => `
+        <button class="opt-btn" onclick="checkQuizAnswer(${i}, this)">${opt}</button>
+      `).join("");
+
+      renderQuizSVG(item, false);
+      startQuizTimer();
+    }
+
+    function startQuizTimer() {
+      clearInterval(quizTimer);
+      timeLeft = 30;
+      const tBox = document.getElementById("timer-box");
+      tBox.innerText = `⏱️ ${timeLeft} ث`;
+      quizTimer = setInterval(() => {
+        timeLeft--;
+        tBox.innerText = `⏱️ ${timeLeft} ث`;
+        if (timeLeft <= 0) {
+          clearInterval(quizTimer);
+          tBox.innerText = "⌛ انتهى الوقت!";
+        }
+      }, 1000);
+    }
+
+    function checkQuizAnswer(chosenIdx, btn) {
+      clearInterval(quizTimer);
+      const item = QUIZ_QUESTIONS[currentQuizIdx];
+      const allBtns = document.querySelectorAll("#quiz-options .opt-btn");
+      allBtns.forEach(b => b.disabled = true);
+
+      const fb = document.getElementById("quiz-feedback");
+      fb.classList.add("visible");
+
+      if (chosenIdx === item.correct) {
+        btn.classList.add("correct");
+        changeScore(selectedTeamIdx, 10);
+        fb.innerHTML = `✅ <strong>إجابة صحيحة وممتازة! (+١٠ نقاط لـ ${OMAN_GROUPS_META[selectedTeamIdx].name})</strong><br>${item.explain}`;
+      } else {
+        btn.classList.add("wrong");
+        allBtns[item.correct].classList.add("correct");
+        fb.innerHTML = `❌ <strong>إجابة غير دقيقة!</strong><br>${item.explain}`;
+      }
+      renderQuizSVG(item, true);
+    }
+
+    function renderQuizSVG(item, showAns) {
+      const box = document.getElementById("quiz-svg-box");
+      box.innerHTML = `
+        <svg viewBox="0 0 320 220" width="310" height="210">
+          <text x="160" y="32" text-anchor="middle" font-weight="900" font-size="15" fill="#1e3a8a">تمثيل السؤال على خط الأعداد</text>
+          <line x1="25" y1="120" x2="295" y2="120" stroke="#65a30d" stroke-width="4.5"/>
+          <polygon points="15,120 28,113 28,127" fill="#65a30d"/>
+          <polygon points="305,120 292,113 292,127" fill="#65a30d"/>
+
+          <line x1="60" y1="102" x2="60" y2="138" stroke="#1e293b" stroke-width="3.5"/>
+          <text x="60" y="162" text-anchor="middle" font-weight="900" font-size="14">${item.lineMin}</text>
+
+          <line x1="260" y1="102" x2="260" y2="138" stroke="#1e293b" stroke-width="3.5"/>
+          <text x="260" y="162" text-anchor="middle" font-weight="900" font-size="14">${item.lineMax}</text>
+
+          <g style="opacity:${showAns ? 1 : 0}; transition:opacity 0.5s;">
+            <circle cx="160" cy="120" r="8" fill="#16a34a"/>
+            <rect x="105" y="58" width="110" height="32" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+            <text x="160" y="80" text-anchor="middle" font-weight="900" font-size="15" fill="#14532d">${item.options[item.correct]}</text>
+          </g>
+        </svg>
+      `;
+    }
+
+    function revealQuizVisualHint() {
+      const item = QUIZ_QUESTIONS[currentQuizIdx];
+      renderQuizSVG(item, true);
+    }
+
+    function nextQuizQuestion() {
+      currentQuizIdx = (currentQuizIdx + 1) % QUIZ_QUESTIONS.length;
+      selectedTeamIdx = (selectedTeamIdx + 1) % 6;
+      renderQuizScoreboard();
+      loadQuizQuestion();
+    }
+
+    function prevQuizQuestion() {
+      currentQuizIdx = (currentQuizIdx - 1 + QUIZ_QUESTIONS.length) % QUIZ_QUESTIONS.length;
+      loadQuizQuestion();
+    }
+
+    function showWinnerModal() {
+      const cls = CLASSES_DATA[currentClassKey];
+      const maxScore = Math.max(...cls.scores);
+      const winners = OMAN_GROUPS_META.filter((_, i) => cls.scores[i] === maxScore);
+      const names = winners.map(w => w.name).join(" ، ");
+      showModal("🏆 تتويج المجموعة المتصدرة بالكأس العُماني", `
+        <div style="font-size:3rem; margin-bottom:10px;">🏆🇴🇲</div>
+        <div style="color:var(--oman-green); font-size:1.4rem; margin-bottom:8px;">${names}</div>
+        <div>برصيد نقاط: <strong style="color:var(--oman-red); font-size:1.5rem;">${maxScore} نقطة</strong></div>
+      `);
+    }
+
+    function showModal(title, bodyHTML) {
+      document.getElementById("modal-title").innerText = title;
+      document.getElementById("modal-body").innerHTML = bodyHTML;
+      document.getElementById("modal-overlay").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal-overlay").style.display = "none";
+    }
+
+    // التشغيل الأولي عند فتح الصفحة
+    window.onload = () => {
+      renderGroups();
+      loadExercise(0);
+      loadQuizQuestion();
+    };
+  </script>
+</body>
+</html>
